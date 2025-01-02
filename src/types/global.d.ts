@@ -3,12 +3,12 @@ interface ProductItem {
     name: string,
     price: number,
     category: string,
-    image: [
+    image: {
         thumbnail: string,
         mobile: string,
         tablet: string,
         desktop: string
-    ],
+    },
 
 }
 

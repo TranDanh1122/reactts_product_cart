@@ -1,6 +1,6 @@
 import React from "react";
 import { CartContext } from "../../CartContext.tsx";
-import { getImage } from "../../helpers/helper";
+import { getImage } from "../../helpers/helper.ts";
 interface CartItemProps {
     item: CartItem,
     isModel: boolean

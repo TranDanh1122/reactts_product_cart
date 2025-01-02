@@ -1,6 +1,6 @@
 import React from "react";
-import { getImage } from "../../helpers/helper.js";
 import { CartContext } from "../../CartContext.tsx";
+import { getImage } from "../../helpers/helper.ts"
 interface ProductItemProps {
     item: ProductItem
 }
@@ -24,7 +24,7 @@ const handleAddToCart = (addToCart: React.Dispatch<CartAction>, item: ProductIte
 const ProductItem: React.FC<ProductItemProps> = React.memo(({ item }): React.JSX.Element => {
     const [addToCart, isAdd] = React.useState(false)
     const { cart, setCart } = React.useContext(CartContext)
-    const [input, setInput] = React.useReducer(inputReducer, cart.items.find((cartItem: CartItem) => item.id == cartItem.id)?.qty ?? 0)
+    const [input, setInput] = React.useReducer(inputReducer, cart.items?.find((cartItem: CartItem) => item.id == cartItem.id)?.qty ?? 0)
 
     return (
         <div className="w-[calc(33.33%-1rem)] mb:w-full ">
@@ -34,7 +34,7 @@ const ProductItem: React.FC<ProductItemProps> = React.memo(({ item }): React.JSX
             {(addToCart)
                 ?
                 <div className="relative translate-y-[-50%] w-1/2 mx-auto">
-                    <span className=" w-5 h-5 border-white border-solid border-2 rounded-[50%] absolute top-[calc(50%-10px)] left-4 flex items-center justify-center" onClick={(e) => {
+                    <span className=" w-5 h-5 border-white border-solid border-2 rounded-[50%] absolute top-[calc(50%-10px)] left-4 flex items-center justify-center" onClick={() => {
                         setInput({ type: "addOne", value: -1 })
                         handleAddToCart(setCart, item, input)
                     }} >
@@ -55,7 +55,7 @@ const ProductItem: React.FC<ProductItemProps> = React.memo(({ item }): React.JSX
                         handleAddToCart(setCart, item, input)
 
                     }} />
-                    <span className=" w-5 h-5 border-white border-solid border-2 rounded-[50%] absolute top-[calc(50%-10px)]  right-4 flex items-center justify-center" onClick={(e) => {
+                    <span className=" w-5 h-5 border-white border-solid border-2 rounded-[50%] absolute top-[calc(50%-10px)]  right-4 flex items-center justify-center" onClick={() => {
                         setInput({ type: "addOne", value: 1 })
                         handleAddToCart(setCart, item, input)
                     }} >
