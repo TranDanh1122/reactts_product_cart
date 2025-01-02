@@ -6,7 +6,7 @@ const cartReducer = (cart: Cart, action: CartAction): Cart => {
     switch (action.key) {
         case "add": {
             if (action.item) {
-                const index = cart.items.findIndex(item => item.id === (action.item?.id ?? 0));
+                const index = cart.items?.findIndex(item => item.id === (action.item?.id ?? 0)) ?? [];
                 const items = [...cart.items] as CartItem[];
                 if (index > -1) {
                     items[index] = { ...items[index], qty: action.item.qty, total: action.item.total };
@@ -55,8 +55,8 @@ interface CartProviderProps {
 }
 const CartProvider: React.FC<CartProviderProps> = ({ children }): React.JSX.Element => {
     const memoryCart = (): Cart => {
-        const cart = localStorage.getItem('cart')
-        return cart ? JSON.parse(cart) as Cart : { items: [], total: 0 } as Cart;
+        const cartMemo = localStorage.getItem('cart')
+        return cartMemo ? JSON.parse(cartMemo) as Cart : { items: [], total: 0 } as Cart;
     }
     const initialCart: Cart = memoryCart();
     const [cart, setCart] = React.useReducer(cartReducer, initialCart);
